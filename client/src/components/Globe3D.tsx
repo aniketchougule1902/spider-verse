@@ -2,7 +2,7 @@
  * AKASHGANGA visual system: original procedural worlds with volcanic material depth,
  * cinematic atmosphere, axial motion, and direct-manipulation orbital controls.
  */
-import { PointerEvent, useEffect, useRef } from "react";
+import { type CSSProperties, PointerEvent, useEffect, useRef } from "react";
 import * as THREE from "three";
 
 type GlobeSize = "card" | "detail";
@@ -275,6 +275,13 @@ function disposeObject(object: THREE.Object3D) {
 export default function Globe3D({ visual, label, material, size = "card", animate = true, interactive = false }: Globe3DProps) {
   const hostRef = useRef<HTMLDivElement>(null);
   const motionRef = useRef({ rotationX: 0.05, rotationY: 0, targetX: 0.05, targetY: 0, dragging: false, lastX: 0, lastY: 0 });
+  const palette = palettes[visual] ?? palettes.aurelia;
+  const fallbackStyle = {
+    "--globe-surface": material?.surface ?? colorCss(new THREE.Color(palette.base)),
+    "--globe-crust": material?.crust ?? colorCss(new THREE.Color(palette.base).multiplyScalar(0.38)),
+    "--globe-lava": material?.lava ?? colorCss(new THREE.Color(palette.glow)),
+    "--globe-atmosphere": material?.atmosphere ?? colorCss(new THREE.Color(palette.accent)),
+  } as CSSProperties;
 
   useEffect(() => {
     const host = hostRef.current;
@@ -441,6 +448,7 @@ export default function Globe3D({ visual, label, material, size = "card", animat
     <div
       ref={hostRef}
       className={`globe3d globe3d-${size}${interactive ? " is-interactive" : ""}`}
+      style={fallbackStyle}
       role={interactive ? "application" : "img"}
       tabIndex={interactive ? 0 : undefined}
       aria-label={interactive ? `${label} interactive 3D globe. Drag or swipe to orbit the volcanic surface.` : `${label} rotating 3D globe`}
@@ -459,6 +467,8 @@ export default function Globe3D({ visual, label, material, size = "card", animat
         if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
       }}
       onPointerCancel={() => { motionRef.current.dragging = false; }}
-    />
+    >
+      <span className="globe3d-fallback" aria-hidden="true" />
+    </div>
   );
 }

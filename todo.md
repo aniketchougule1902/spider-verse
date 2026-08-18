@@ -43,3 +43,6 @@
 - [x] Diagnose the deployed login illustration asset reference.
 - [x] Replace the missing login image with a deployment-safe asset path.
 - [x] Validate and push the deployed login-image correction.
+- [x] Diagnose why carousel WebGL cards fail only after deployment.
+- [x] Add a deployment-safe visual fallback for carousel planet cards.
+- [x] Validate and push the deployed carousel planet repair.
