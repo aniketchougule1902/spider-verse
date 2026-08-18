@@ -5,5 +5,6 @@ import "./vercel-assets.css";
 import "./mobile-observatory.css";
 import "./planet-experience.css";
 import "./akashganga-expansion.css";
+import "./spherical-planets.css";
 
 createRoot(document.getElementById("root")!).render(<App />);
