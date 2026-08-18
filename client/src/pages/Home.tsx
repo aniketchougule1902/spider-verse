@@ -20,10 +20,10 @@ import {
   X,
 } from "lucide-react";
 
-const markUrl = "/manus-storage/orbital-spider-mark_e99025f1.png";
-const authSpiderUrl = "/manus-storage/white-highkey-webslinger-cutout-v2_8fd40822.png";
-const heroGalaxyUrl = "/manus-storage/ufo-milkyway-observatory_66054443.jpg";
-const galaxyTextureUrl = "/manus-storage/spider-verse-milkyway-hero_84834daa.jpg";
+const markUrl = "/assets/orbital-spider-mark.png";
+const authSpiderUrl = "/assets/white-highkey-webslinger-cutout.png";
+const heroGalaxyUrl = "/assets/ufo-milkyway-observatory.jpg";
+const galaxyTextureUrl = "/assets/spider-verse-milkyway-hero.jpg";
 
 const worlds = [
   {
