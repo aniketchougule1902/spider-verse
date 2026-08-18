@@ -61,3 +61,6 @@
 - [x] Inspect the existing web cursor and click-sound behavior.
 - [x] Add randomized web-strand launches with click-synchronized throw audio.
 - [x] Validate and push the enhanced web-cursor interaction.
+- [x] Inspect global landing-page backgrounds and contrast boundaries.
+- [x] Implement a shared universe star field and Milky Way depth treatment.
+- [x] Validate and push the full-page universe background enhancement.
