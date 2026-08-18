@@ -356,7 +356,25 @@ export default function Home() {
             <div className="observatory-assembly" aria-hidden="true">
               <div className="radio-antenna"><span /><b /><i /></div>
               <div className="telescope-model"><div className="scope" /><div className="mount" /><div className="leg l1" /><div className="leg l2" /><div className="leg l3" /></div>
-              <div className="satellite"><i /><b /><span /></div>
+              <div className="satellite satellite-2d">
+                <svg viewBox="0 0 240 120" role="img" aria-label="Orbiting satellite">
+                  <defs>
+                    <linearGradient id="left-panel" x1="0" x2="1"><stop stopColor="#163f75" /><stop offset="1" stopColor="#77b9eb" /></linearGradient>
+                    <linearGradient id="right-panel" x1="0" x2="1"><stop stopColor="#77b9eb" /><stop offset="1" stopColor="#163f75" /></linearGradient>
+                  </defs>
+                  <rect className="sat-panel sat-panel-left" x="10" y="42" width="70" height="36" rx="3" />
+                  <rect className="sat-panel sat-panel-right" x="160" y="42" width="70" height="36" rx="3" />
+                  <path className="sat-strut" d="M76 60h23m42 0h23" />
+                  <path className="sat-body" d="M95 40h48l12 20-12 20H95L83 60z" />
+                  <circle className="sat-window" cx="120" cy="60" r="10" />
+                  <path className="sat-dish" d="M108 40c7-20 23-20 30 0" />
+                  <path className="sat-antenna" d="M120 40V24m-5 0h10" />
+                  <path className="sat-signal" d="M158 50c12 5 12 15 0 20m7-28c20 11 20 25 0 36" />
+                </svg>
+              </div>
+              <div className="hero-ufo ufo-one"><i /><b /></div>
+              <div className="hero-ufo ufo-two"><i /><b /></div>
+              <div className="hero-ufo ufo-three"><i /><b /></div>
               <div className="hero-web"><i /><i /><i /><i /><i /><i /></div>
               <div className="asteroid"><span /></div>
               <p className="instrument-label label-a">WAVELENGTH // 649 NM</p>

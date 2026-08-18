@@ -55,3 +55,6 @@
 - [x] Validate and push the social-icon refinement.
 - [x] Add a responsive satellite to the hero’s galaxy composition.
 - [x] Validate and push the hero satellite refinement.
+- [x] Replace the current satellite with a larger, clearer 2D illustration.
+- [x] Add several small, moving UFOs to the Milky Way hero scene.
+- [x] Validate and push the refined hero scene.
