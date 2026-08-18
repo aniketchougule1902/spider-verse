@@ -3,5 +3,6 @@ import App from "./App";
 import "./index.css";
 import "./vercel-assets.css";
 import "./mobile-observatory.css";
+import "./planet-experience.css";
 
 createRoot(document.getElementById("root")!).render(<App />);

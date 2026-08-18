@@ -6,6 +6,7 @@ import { FormEvent, PointerEvent, useEffect, useRef, useState } from "react";
 import {
   ArrowDown,
   ArrowUpRight,
+  ChevronLeft,
   ChevronRight,
   Crosshair,
   Headphones,
@@ -26,24 +27,15 @@ const heroGalaxyUrl = "/assets/ufo-milkyway-observatory.jpg";
 const galaxyTextureUrl = "/assets/spider-verse-milkyway-hero.jpg";
 
 const worlds = [
-  {
-    code: "EARTH-1610",
-    title: "Brooklyn Signal",
-    body: "A home-frequency full of first leaps, improvised heroics, and a spider that changed the channel.",
-    tone: "red",
-  },
-  {
-    code: "EARTH-65",
-    title: "Gwen’s Frequency",
-    body: "A drummer’s pulse beneath a watercolor skyline—where one spider bite bends the whole score.",
-    tone: "blue",
-  },
-  {
-    code: "EARTH-928",
-    title: "Nueva York",
-    body: "An elevated future-city where order is monitored, anomalies are archived, and every portal leaves a trace.",
-    tone: "white",
-  },
+  { code: "EARTH-1610", title: "Brooklyn Signal", body: "A home-frequency full of first leaps, improvised heroics, and a spider that changed the channel.", detail: "Miles Morales' Brooklyn is an alive, chromatic city where every leap starts with a choice and every rooftop carries a new signal.", signature: "VENOM PULSE", visual: "brooklyn" },
+  { code: "EARTH-65", title: "Gwen’s Frequency", body: "A drummer’s pulse beneath a watercolor skyline where one spider bite bends the whole score.", detail: "Gwen Stacy's world paints emotion directly into the skyline: soft washes, hard drumbeats, and a city that changes color with its hero.", signature: "WATERCOLOR WAVE", visual: "gwen" },
+  { code: "EARTH-928", title: "Nueva York", body: "An elevated future-city where order is monitored, anomalies are archived, and every portal leaves a trace.", detail: "Miguel O'Hara's Nueva York runs on vertical motion, archive logic, and a future skyline where the Spider-Society watches every dimensional fracture.", signature: "LYLA GRID", visual: "nueva" },
+  { code: "EARTH-42", title: "Prowler Night", body: "A city without its Spider-Man, tuned to a darker frequency and an alternate Miles with sharp edges.", detail: "Earth-42 is Brooklyn after a missing spider-bite changes the whole equation. Its purple nightscape is tense, resilient, and still waiting for its turn to swing.", signature: "PURPLE STATIC", visual: "prowler" },
+  { code: "EARTH-50101", title: "Mumbattan", body: "A gravity-bending skyline where Mumbai and Manhattan share one exhilarating, impossible horizon.", detail: "Pavitr Prabhakar's Mumbattan folds bright color, vertical trains, and playful physics into a metropolis that feels built to be crossed by web.", signature: "CANON THREAD", visual: "mumbattan" },
+  { code: "EARTH-138", title: "Punk Frequency", body: "A cut-and-paste London riot powered by guitar feedback, ink splatter, and Hobie Brown's refusal to conform.", detail: "Earth-138 breaks its own frame on purpose. Every collage edge and poster tear becomes a signal that the web can always be remixed.", signature: "AMP DISTORTION", visual: "punk" },
+  { code: "EARTH-90214", title: "Noir City", body: "A black-and-white metropolis of rain, hard shadows, and a detective who never stops listening for trouble.", detail: "Spider-Man Noir's world filters the multiverse through film grain and noir instincts, turning every street lamp into a warning and every shadow into a question.", signature: "MONOCHROME TRACE", visual: "noir" },
+  { code: "EARTH-14512", title: "SP//dr Sector", body: "A neon-mecha dimension where Peni Parker syncs heart and machine to protect a hypercharged city.", detail: "Peni's universe merges organic feeling with engineered defense. Its signal is sharp, bright, and always one step away from a giant mechanical swing.", signature: "NEURAL LINK", visual: "spdr" },
+  { code: "EARTH-13122", title: "Brickline Sector", body: "A modular city where every wall can rebuild itself and one LEGO Spider-Man keeps the pieces moving.", detail: "Brickline Sector turns the web into a toybox of infinite construction: compact, colorful, and always ready to snap into a new configuration.", signature: "STUD ALIGNMENT", visual: "brick" },
 ];
 
 const missions = [
@@ -80,8 +72,12 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cursorReady, setCursorReady] = useState(false);
   const [musicOn, setMusicOn] = useState(false);
+  const [planetSlide, setPlanetSlide] = useState(0);
+  const [selectedWorld, setSelectedWorld] = useState<(typeof worlds)[number] | null>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
   const shotRef = useRef<HTMLDivElement>(null);
+  const detailPlanetRef = useRef<HTMLDivElement>(null);
+  const carouselPointerRef = useRef(false);
   const audioContextRef = useRef<AudioContext | null>(null);
   const musicTimerRef = useRef<number | null>(null);
 
@@ -91,6 +87,20 @@ export default function Home() {
       audioContextRef.current?.close();
     };
   }, []);
+
+  useEffect(() => {
+    if (!selectedWorld) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelectedWorld(null);
+    };
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [selectedWorld]);
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     if (!cursorReady) setCursorReady(true);
@@ -156,6 +166,21 @@ export default function Home() {
     } catch {
       // Some preview browsers block Web Audio. The visual pulse still confirms the selected state.
     }
+  };
+
+  const tiltPlanet = (event: PointerEvent<HTMLDivElement>) => {
+    const target = detailPlanetRef.current;
+    if (!target) return;
+    const bounds = target.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+    target.style.setProperty("--tilt-x", `${-10 - y * 20}deg`);
+    target.style.setProperty("--tilt-y", `${16 + x * 34}deg`);
+  };
+
+  const resetPlanetTilt = () => {
+    detailPlanetRef.current?.style.removeProperty("--tilt-x");
+    detailPlanetRef.current?.style.removeProperty("--tilt-y");
   };
 
   return (
@@ -307,21 +332,34 @@ export default function Home() {
 
           <section id="exoplanets" className="worlds-section section-shell">
             <div className="section-kicker"><span>01</span> EXOPLANETS / KNOWN FREQUENCIES</div>
-            <div className="worlds-heading">
-              <h2>Three worlds.<br /><em>One fractured web.</em></h2>
-              <p>Every Spider-hero hears a different sky. These coordinates are our first points of contact.</p>
+            <div className="worlds-heading carousel-heading">
+              <h2>Nine worlds.<br /><em>One fractured web.</em></h2>
+              <p>Trace three signals at a time, then open any coordinate to explore a living, interactive world model.</p>
             </div>
-            <div className="world-list">
-              {worlds.map((world, index) => (
-                <article className={`world-card ${world.tone}`} key={world.code}>
-                  <div className="world-orb"><span /></div>
-                  <div className="world-index">0{index + 1}</div>
-                  <p className="eyebrow">{world.code}</p>
-                  <h3>{world.title}</h3>
-                  <p>{world.body}</p>
-                  <a href="#exploration">Open coordinates <ArrowUpRight size={15} /></a>
-                </article>
-              ))}
+            <div className="planet-carousel" aria-label="Spider-Verse world carousel">
+              <div className="carousel-toolbar">
+                <p><span>{String(planetSlide + 1).padStart(2, "0")}</span> / 03 TRANSMISSION SETS</p>
+                <div className="carousel-controls">
+                  <button type="button" onPointerDown={(event) => { event.stopPropagation(); carouselPointerRef.current = true; setPlanetSlide((currentSlide) => (currentSlide + 2) % 3); }} onClick={(event) => { event.stopPropagation(); if (!carouselPointerRef.current) setPlanetSlide((currentSlide) => (currentSlide + 2) % 3); carouselPointerRef.current = false; }} aria-label="Previous three worlds"><ChevronLeft size={19} /></button>
+                  <button type="button" onPointerDown={(event) => { event.stopPropagation(); carouselPointerRef.current = true; setPlanetSlide((currentSlide) => (currentSlide + 1) % 3); }} onClick={(event) => { event.stopPropagation(); if (!carouselPointerRef.current) setPlanetSlide((currentSlide) => (currentSlide + 1) % 3); carouselPointerRef.current = false; }} aria-label="Next three worlds"><ChevronRight size={19} /></button>
+                </div>
+              </div>
+              <div className="carousel-window">
+                <div className="carousel-track" style={{ transform: `translateX(-${planetSlide * 100}%)` }}>
+                  {[0, 1, 2].map((group) => (
+                    <div className="planet-slide" key={group}>
+                      {worlds.slice(group * 3, group * 3 + 3).map((world, index) => (
+                        <button className={`planet-card planet-${world.visual}`} type="button" key={world.code} onClick={() => setSelectedWorld(world)}>
+                          <span className="planet-card-number">{String(group * 3 + index + 1).padStart(2, "0")}</span>
+                          <div className="planet-sphere" aria-hidden="true"><i /><b /></div>
+                          <div className="planet-card-copy"><p className="eyebrow">{world.code}</p><h3>{world.title}</h3><span>{world.body}</span></div>
+                          <span className="planet-open">OPEN WORLD <ArrowUpRight size={14} /></span>
+                        </button>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </section>
 
@@ -375,6 +413,24 @@ export default function Home() {
               <span>FAN FIELD STUDY // 08-616</span>
             </div>
           </footer>
+
+          {selectedWorld && (
+            <div className="world-dialog-backdrop" role="presentation" onPointerDown={() => setSelectedWorld(null)}>
+              <article className={`world-dialog planet-${selectedWorld.visual}`} role="dialog" aria-modal="true" aria-labelledby="world-dialog-title" onPointerDown={(event) => event.stopPropagation()}>
+                <button className="world-dialog-close" type="button" onClick={() => setSelectedWorld(null)} aria-label="Close world detail"><X size={20} /></button>
+                <div className="world-dialog-copy">
+                  <p className="eyebrow"><Crosshair size={13} /> DIMENSIONAL READOUT // {selectedWorld.code}</p>
+                  <h2 id="world-dialog-title">{selectedWorld.title}</h2>
+                  <p>{selectedWorld.detail}</p>
+                  <div className="world-readouts"><span>HOME SIGNAL <b>{selectedWorld.code}</b></span><span>KEY TRACE <b>{selectedWorld.signature}</b></span></div>
+                  <p className="planet-instruction">MOVE ACROSS THE PLANET TO TILT THE ORBITAL MODEL</p>
+                </div>
+                <div className="detail-planet-stage" ref={detailPlanetRef} onPointerMove={tiltPlanet} onPointerLeave={resetPlanetTilt}>
+                  <div className="interactive-planet"><div className="planet-sphere"><i /><b /></div><span className="planet-orbit orbit-one" /><span className="planet-orbit orbit-two" /><span className="planet-scan" /></div>
+                </div>
+              </article>
+            </div>
+          )}
         </main>
       )}
     </div>
