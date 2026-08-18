@@ -1,0 +1,66 @@
+/* Orbital Noir mobile correction: keep instrument silhouettes legible instead of clipped. */
+@media (max-width: 860px) {
+  .observatory-assembly {
+    right: -4vw;
+    bottom: 6%;
+    width: min(84vw, 360px);
+    height: 49%;
+    min-height: 280px;
+    overflow: visible;
+  }
+
+  .telescope-model {
+    right: -15px;
+    bottom: -7px;
+    transform: scale(0.58) rotate(-10deg);
+    transform-origin: bottom right;
+  }
+
+  .radio-antenna {
+    right: 44%;
+    bottom: 23%;
+    height: 50%;
+    transform: rotate(10deg) scaleY(0.9);
+  }
+
+  .hero-web {
+    right: 1%;
+    top: 5%;
+    width: 122px;
+    height: 122px;
+    opacity: 0.48;
+  }
+
+  .hero-web i {
+    top: -11px;
+    height: 144px;
+    transform-origin: 50% 72px;
+  }
+
+  .asteroid {
+    top: 11%;
+    left: -11%;
+    width: 26px;
+    height: 19px;
+    animation: asteroid-orbit-mobile 6.5s ease-in-out infinite;
+  }
+
+  .asteroid::after {
+    right: 17px;
+    width: 66px;
+    height: 15px;
+    filter: blur(4px);
+  }
+
+  .label-a { right: 4%; top: 36%; }
+  .label-b { display: block; right: 11%; bottom: 7%; font-size: 7px; }
+}
+
+@keyframes asteroid-orbit-mobile {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-16deg) scale(0.7); }
+  50% { transform: translate3d(46px, 23px, 0) rotate(21deg) scale(0.7); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .asteroid { animation: none; }
+}
