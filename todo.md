@@ -37,3 +37,6 @@
 - [x] Add volcanic surface, lava glow, atmosphere, and cinematic lighting to View Planet.
 - [x] Enhance drag and touch globe interaction with responsive camera movement.
 - [x] Validate and push the enhanced interactive planet detail experience.
+- [x] Diagnose the white fallback globe in main carousel cards.
+- [x] Restore intended per-world materials for carousel planet canvases.
+- [ ] Validate the carousel spheres and push the rendering correction.

@@ -127,7 +127,9 @@ function drawStrokes(context: CanvasRenderingContext2D, strokes: CrackStroke[], 
 }
 
 function createPlanetTextures(profile: GlobeMaterialProfile, visual: string, size: GlobeSize) {
-  const textureSize = size === "detail" ? 512 : 224;
+  // Keep card maps power-of-two. The former 224 × 112 maps were incomplete on
+  // WebGL 1 devices when paired with RepeatWrapping, exposing a white material.
+  const textureSize = size === "detail" ? 512 : 256;
   const surfaceCanvas = document.createElement("canvas");
   const emissiveCanvas = document.createElement("canvas");
   const bumpCanvas = document.createElement("canvas");
@@ -326,7 +328,9 @@ export default function Globe3D({ visual, label, material, size = "card", animat
     globeRig.add(globe);
     const textureResult = createPlanetTextures(profile, visual, size);
     const coreMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xffffff,
+      // The base tint is a deliberate resilience layer: each card still reads
+      // as its world if a browser declines a procedurally generated map.
+      color: new THREE.Color(profile.surface),
       map: textureResult.surfaceTexture,
       emissive: lavaColor,
       emissiveMap: textureResult.emissiveTexture,
