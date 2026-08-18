@@ -39,4 +39,7 @@
 - [x] Validate and push the enhanced interactive planet detail experience.
 - [x] Diagnose the white fallback globe in main carousel cards.
 - [x] Restore intended per-world materials for carousel planet canvases.
-- [ ] Validate the carousel spheres and push the rendering correction.
+- [x] Validate the carousel spheres and push the rendering correction.
+- [x] Diagnose the deployed login illustration asset reference.
+- [x] Replace the missing login image with a deployment-safe asset path.
+- [x] Validate and push the deployed login-image correction.

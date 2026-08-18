@@ -23,7 +23,8 @@ import {
 } from "lucide-react";
 import Globe3D, { type GlobeMaterialProfile } from "@/components/Globe3D";
 
-const authSpiderUrl = "/manus-storage/white-highkey-webslinger-cutout-v2_8fd40822.png";
+const authSpiderUrl = "/assets/white-highkey-webslinger-cutout.png";
+const managedAuthSpiderFallbackUrl = "/manus-storage/white-highkey-webslinger-cutout-v2_8fd40822.png";
 const heroGalaxyUrl = "/manus-storage/ufo-milkyway-observatory_66054443.jpg";
 const galaxyTextureUrl = "/manus-storage/spider-verse-milkyway-hero_84834daa.jpg";
 
@@ -278,7 +279,15 @@ export default function Home() {
               <div className="auth-reticle"><span /><span /><span /><span /></div>
               <div className="auth-reading">TARGET LOCK // WEB-01<br />MOONLIT CAPTURE // STABLE</div>
             </div>
-            <img className="auth-spider" src={authSpiderUrl} alt="" />
+            <img
+              className="auth-spider"
+              src={authSpiderUrl}
+              alt=""
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null;
+                currentTarget.src = managedAuthSpiderFallbackUrl;
+              }}
+            />
             <div className="photo-coordinate coord-one">40° 42′ 46″ N</div>
             <div className="photo-coordinate coord-two">MULTI / 01</div>
           </div>
