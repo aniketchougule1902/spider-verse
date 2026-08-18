@@ -21,11 +21,11 @@ import {
   Volume2,
   X,
 } from "lucide-react";
-import Globe3D from "@/components/Globe3D";
+import Globe3D, { type GlobeMaterialProfile } from "@/components/Globe3D";
 
-const authSpiderUrl = "/assets/white-highkey-webslinger-cutout.png";
-const heroGalaxyUrl = "/assets/ufo-milkyway-observatory.jpg";
-const galaxyTextureUrl = "/assets/spider-verse-milkyway-hero.jpg";
+const authSpiderUrl = "/manus-storage/white-highkey-webslinger-cutout-v2_8fd40822.png";
+const heroGalaxyUrl = "/manus-storage/ufo-milkyway-observatory_66054443.jpg";
+const galaxyTextureUrl = "/manus-storage/spider-verse-milkyway-hero_84834daa.jpg";
 
 const worlds = [
   { code: "ORBIT // 01", title: "Aurelia", body: "A gold-lit world with a volatile upper atmosphere and long, quiet daybreaks.", detail: "Aurelia is a simulated inner-rim discovery: warm cloud bands, sudden auroras, and a horizon that glows like a fresh webline at dawn.", signature: "AURORA GLINT", origin: "INNER MILKY WAY", distance: "4.2 × 10¹³ km", visual: "aurelia" },
@@ -44,6 +44,24 @@ const worlds = [
   { code: "ORBIT // 14", title: "Pollen Arc", body: "A bright citrus world that scatters star dust into its yellow-green sky.", detail: "Pollen Arc is small but unforgettable, casting a warm grainy halo that makes it easy to find across the larger Milky Way field.", signature: "GOLD DUST", origin: "SAGITTARIUS ARM", distance: "3.7 × 10¹⁴ km", visual: "pollen" },
   { code: "ORBIT // 15", title: "Glass Meridian", body: "A midnight glass sphere marked by a single mirrored equator.", detail: "Glass Meridian reflects the galactic band as a clean silver seam. It is a final horizon for this field set, calm and sharply defined.", signature: "MIRROR LINE", origin: "OUTER DISK", distance: "4.1 × 10¹⁴ km", visual: "glass" },
 ];
+
+const worldMaterialProfiles: Record<string, GlobeMaterialProfile> = {
+  aurelia: { surface: "#b56a24", crust: "#25130d", lava: "#ff9a31", atmosphere: "#ffd373", roughness: 0.76, metalness: 0.12, relief: 0.026, crackDensity: 0.56, lavaIntensity: 1.18, atmosphereOpacity: 0.28, seed: 11 },
+  noctis: { surface: "#263b69", crust: "#070b18", lava: "#4b8aff", atmosphere: "#8fc6ff", roughness: 0.52, metalness: 0.42, relief: 0.018, crackDensity: 0.18, lavaIntensity: 0.48, atmosphereOpacity: 0.18, seed: 17 },
+  solara: { surface: "#d86b1e", crust: "#341208", lava: "#ffb23d", atmosphere: "#ffe094", roughness: 0.82, metalness: 0.08, relief: 0.031, crackDensity: 0.64, lavaIntensity: 1.34, atmosphereOpacity: 0.3, seed: 23 },
+  mistral: { surface: "#7860a7", crust: "#1d1738", lava: "#d396ff", atmosphere: "#d9baff", roughness: 0.46, metalness: 0.2, relief: 0.016, crackDensity: 0.22, lavaIntensity: 0.55, atmosphereOpacity: 0.32, seed: 29 },
+  ember: { surface: "#8f2b1d", crust: "#1d0a08", lava: "#ff5b2e", atmosphere: "#ff7e48", roughness: 0.86, metalness: 0.06, relief: 0.036, crackDensity: 0.88, lavaIntensity: 1.72, atmosphereOpacity: 0.42, seed: 31 },
+  cobalt: { surface: "#1762a5", crust: "#061d4b", lava: "#52c8ff", atmosphere: "#8fe1ff", roughness: 0.31, metalness: 0.32, relief: 0.014, crackDensity: 0.12, lavaIntensity: 0.34, atmosphereOpacity: 0.26, seed: 37 },
+  verdant: { surface: "#238768", crust: "#09261f", lava: "#56d7a2", atmosphere: "#a7f0b7", roughness: 0.68, metalness: 0.1, relief: 0.022, crackDensity: 0.28, lavaIntensity: 0.64, atmosphereOpacity: 0.32, seed: 41 },
+  ibis: { surface: "#9a3031", crust: "#260807", lava: "#ff4d2e", atmosphere: "#ff8e70", roughness: 0.9, metalness: 0.04, relief: 0.042, crackDensity: 0.94, lavaIntensity: 1.86, atmosphereOpacity: 0.46, seed: 43 },
+  fable: { surface: "#9baac1", crust: "#26334d", lava: "#d8e6ff", atmosphere: "#e8efff", roughness: 0.38, metalness: 0.26, relief: 0.013, crackDensity: 0.1, lavaIntensity: 0.24, atmosphereOpacity: 0.24, seed: 47 },
+  quartz: { surface: "#829bb1", crust: "#1d2a3e", lava: "#bcecff", atmosphere: "#e8fbff", roughness: 0.29, metalness: 0.64, relief: 0.017, crackDensity: 0.15, lavaIntensity: 0.38, atmosphereOpacity: 0.2, seed: 53 },
+  nara: { surface: "#b74d7c", crust: "#321126", lava: "#ff8fc7", atmosphere: "#ffbddd", roughness: 0.56, metalness: 0.14, relief: 0.02, crackDensity: 0.3, lavaIntensity: 0.66, atmosphereOpacity: 0.4, seed: 59 },
+  crimson: { surface: "#8f2331", crust: "#210709", lava: "#ff3d45", atmosphere: "#ff766f", roughness: 0.84, metalness: 0.08, relief: 0.033, crackDensity: 0.78, lavaIntensity: 1.48, atmosphereOpacity: 0.4, seed: 61 },
+  aster: { surface: "#a9acb8", crust: "#263148", lava: "#e7f6ff", atmosphere: "#d9e7ff", roughness: 0.34, metalness: 0.5, relief: 0.018, crackDensity: 0.13, lavaIntensity: 0.3, atmosphereOpacity: 0.21, seed: 67 },
+  pollen: { surface: "#c7891c", crust: "#352405", lava: "#ffd543", atmosphere: "#fff0a6", roughness: 0.72, metalness: 0.1, relief: 0.025, crackDensity: 0.4, lavaIntensity: 0.94, atmosphereOpacity: 0.31, seed: 71 },
+  glass: { surface: "#263b57", crust: "#07101d", lava: "#75bff5", atmosphere: "#c9edff", roughness: 0.12, metalness: 0.78, relief: 0.01, crackDensity: 0.08, lavaIntensity: 0.22, atmosphereOpacity: 0.17, seed: 73 },
+};
 
 const planetSetCount = Math.ceil(worlds.length / 3);
 
@@ -357,7 +375,7 @@ export default function Home() {
                       {worlds.slice(group * 3, group * 3 + 3).map((world, index) => (
                         <button className={`planet-card planet-${world.visual}`} type="button" key={world.code} onClick={() => setSelectedWorld(world)}>
                           <span className="planet-card-number">{String(group * 3 + index + 1).padStart(2, "0")}</span>
-                          <div className="planet-card-visual"><Globe3D visual={world.visual} label={world.title} animate={planetsInView} /></div>
+                          <div className="planet-card-visual"><Globe3D visual={world.visual} label={world.title} material={worldMaterialProfiles[world.visual]} animate={planetsInView} /></div>
                           <div className="planet-card-copy"><p className="eyebrow">{world.origin}</p><h3>{world.title}</h3><span>{world.body}</span><p className="planet-distance">SIM DISTANCE <b>{world.distance}</b></p></div>
                           <span className="planet-open">VIEW PLANET <ArrowUpRight size={14} /></span>
                         </button>
@@ -429,15 +447,14 @@ export default function Home() {
                   <h2 id="world-dialog-title">{selectedWorld.title}</h2>
                   <p>{selectedWorld.detail}</p>
                   <div className="world-readouts"><span>GALACTIC REGION <b>{selectedWorld.origin}</b></span><span>SIM DISTANCE <b>{selectedWorld.distance}</b></span><span>KEY TRACE <b>{selectedWorld.signature}</b></span></div>
-                  <p className="planet-instruction">TOUCH, DRAG, OR MOVE ACROSS THE PLANET TO TILT THE 3D ORBITAL MODEL</p>
+                  <p className="planet-instruction">DRAG OR SWIPE THE WORLD TO ORBIT ITS VOLCANIC SURFACE — FOLLOW THE LAVA LINES AND ATMOSPHERIC EDGE</p>
                 </div>
-<<<<<<< HEAD
-                <div className="detail-planet-stage" ref={detailPlanetRef} onPointerDown={(event) => event.currentTarget.setPointerCapture(event.pointerId)} onPointerMove={tiltPlanet} onPointerUp={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId); resetPlanetTilt(); }} onPointerLeave={resetPlanetTilt} onPointerCancel={resetPlanetTilt}>
-                  <div className="interactive-planet"><div className="planet-sphere"><i /><b /></div><span className="planet-orbit orbit-one" /><span className="planet-orbit orbit-two" /><span className="planet-scan" /></div>
+                <div className="detail-planet-stage">
+                  <span className="detail-stage-starfield" aria-hidden="true" />
+                  <span className="detail-stage-haze" aria-hidden="true" />
+                  <Globe3D visual={selectedWorld.visual} label={selectedWorld.title} material={worldMaterialProfiles[selectedWorld.visual]} size="detail" interactive />
+                  <span className="detail-stage-readout" aria-hidden="true">LIVE ORBIT // DRAG TO ROTATE</span>
                 </div>
-=======
-                <div className="detail-planet-stage"><Globe3D visual={selectedWorld.visual} label={selectedWorld.title} size="detail" interactive /></div>
->>>>>>> 925e0a8 (Add Three.js WebGL globe explorer)
               </article>
             </div>
           )}
