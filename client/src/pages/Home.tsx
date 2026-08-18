@@ -11,13 +11,16 @@ import {
   Crosshair,
   Download,
   Headphones,
+  Instagram,
   Menu,
+  MessageCircle,
   Mouse,
   Orbit,
   Radio,
   Send,
   Sparkles,
   Telescope,
+  Youtube,
   Volume2,
   X,
 } from "lucide-react";
@@ -353,6 +356,7 @@ export default function Home() {
             <div className="observatory-assembly" aria-hidden="true">
               <div className="radio-antenna"><span /><b /><i /></div>
               <div className="telescope-model"><div className="scope" /><div className="mount" /><div className="leg l1" /><div className="leg l2" /><div className="leg l3" /></div>
+              <div className="satellite"><i /><b /><span /></div>
               <div className="hero-web"><i /><i /><i /><i /><i /><i /></div>
               <div className="asteroid"><span /></div>
               <p className="instrument-label label-a">WAVELENGTH // 649 NM</p>
@@ -463,10 +467,10 @@ export default function Home() {
             <div className="news-socials section-shell">
               <p>FOLLOW THE NEXT TRANSMISSION</p>
               <div>
-                <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">INSTAGRAM <ArrowUpRight size={13} /></a>
-                <a href="https://x.com/" target="_blank" rel="noreferrer">X / TWITTER <ArrowUpRight size={13} /></a>
-                <a href="https://wa.me/" target="_blank" rel="noreferrer">WHATSAPP <ArrowUpRight size={13} /></a>
-                <a href="https://www.youtube.com/" target="_blank" rel="noreferrer">YOUTUBE <ArrowUpRight size={13} /></a>
+                <a className="social-icon-link" href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Follow Akashganga on Instagram" title="Instagram"><Instagram size={18} strokeWidth={1.7} /></a>
+                <a className="social-icon-link social-icon-x" href="https://x.com/" target="_blank" rel="noreferrer" aria-label="Follow Akashganga on X" title="X"><span>𝕏</span></a>
+                <a className="social-icon-link" href="https://wa.me/" target="_blank" rel="noreferrer" aria-label="Follow Akashganga on WhatsApp" title="WhatsApp"><MessageCircle size={18} strokeWidth={1.7} /></a>
+                <a className="social-icon-link" href="https://www.youtube.com/" target="_blank" rel="noreferrer" aria-label="Follow Akashganga on YouTube" title="YouTube"><Youtube size={19} strokeWidth={1.7} /></a>
               </div>
             </div>
           </section>

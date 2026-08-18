@@ -50,3 +50,8 @@
 - [x] Build the email CTA, masked Spider-Man visual, and social-link treatment.
 - [x] Validate and push the latest-news section enhancement.
 - [x] Integrate the supplied Spider-hero exploration copy into the latest-news section.
+- [x] Inspect available platform icons for the latest-news social links.
+- [x] Replace the text social links with accessible visual icons.
+- [x] Validate and push the social-icon refinement.
+- [x] Add a responsive satellite to the hero’s galaxy composition.
+- [x] Validate and push the hero satellite refinement.
