@@ -46,3 +46,7 @@
 - [x] Diagnose why carousel WebGL cards fail only after deployment.
 - [x] Add a deployment-safe visual fallback for carousel planet cards.
 - [x] Validate and push the deployed carousel planet repair.
+- [x] Define the latest-news section placement and responsive composition.
+- [x] Build the email CTA, masked Spider-Man visual, and social-link treatment.
+- [x] Validate and push the latest-news section enhancement.
+- [x] Integrate the supplied Spider-hero exploration copy into the latest-news section.

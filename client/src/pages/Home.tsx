@@ -104,6 +104,8 @@ export default function Home() {
   const [planetsInView, setPlanetsInView] = useState(false);
   const [selectedWorld, setSelectedWorld] = useState<(typeof worlds)[number] | null>(null);
   const [downloadOpen, setDownloadOpen] = useState(false);
+  const [newsEmail, setNewsEmail] = useState("");
+  const [newsSubscribed, setNewsSubscribed] = useState(false);
   const cursorRef = useRef<HTMLDivElement>(null);
   const shotRef = useRef<HTMLDivElement>(null);
   const planetsSectionRef = useRef<HTMLElement>(null);
@@ -429,6 +431,42 @@ export default function Home() {
                 <article><b>01</b><div><h3>Canonical events are pressure points</h3><p>Some turning points recur because they test how a hero chooses to hold a world together.</p></div></article>
                 <article><b>02</b><div><h3>Dimensional travel has a rhythm</h3><p>Glitches, portals, and collider tech are visual signals that one universe is listening to another.</p></div></article>
                 <article><b>03</b><div><h3>Every mask changes the constellation</h3><p>A Spider-hero can be a student, a drummer, a futurist, or a rebel—the responsibility is the shared signal.</p></div></article>
+              </div>
+            </div>
+          </section>
+
+          <section className="news-section" aria-labelledby="news-title">
+            <div className="news-layout section-shell">
+              <div className="news-copy">
+                <p className="section-kicker"><span>04</span> FIELD SIGNAL / INCOMING</p>
+                <h2 id="news-title">Get our latest<br /><em>news.</em></h2>
+                <p>Explore a vast universe where Spider-heroes journey beyond their worlds into distant planets, alternate realities, advanced civilizations, and galaxies filled with impossible technology and unknown threats. Discover new heroes, powerful enemies, hidden mysteries, and stories that expand far beyond the boundaries of any single canon.</p>
+                <form className="news-form" onSubmit={(event) => { event.preventDefault(); if (newsEmail.trim()) setNewsSubscribed(true); }}>
+                  <label htmlFor="news-email">YOUR EMAIL FREQUENCY</label>
+                  <div>
+                    <input id="news-email" type="email" value={newsEmail} onChange={(event) => { setNewsEmail(event.target.value); setNewsSubscribed(false); }} placeholder="you@multiverse.space" required />
+                    <button type="submit" className="signal-button">Get the signal <ArrowUpRight size={16} /></button>
+                  </div>
+                  <small aria-live="polite">{newsSubscribed ? "SIGNAL LOGGED // WATCH THIS ORBIT" : "NO NOISE. ONLY OCCASIONAL FIELD TRANSMISSIONS."}</small>
+                </form>
+              </div>
+              <div className="news-visual" aria-label="Masked Spider-Man field transmission">
+                <span className="news-mask" aria-hidden="true"><i /><i /></span>
+                <div className="news-portrait-frame">
+                  <img src={authSpiderUrl} onError={(event) => { if (!event.currentTarget.src.includes("manus-storage")) event.currentTarget.src = managedAuthSpiderFallbackUrl; }} alt="White Spider-Man field scan" />
+                  <span>MASKED SIGNAL // 04</span>
+                </div>
+                <span className="news-orbit news-orbit-a" aria-hidden="true" />
+                <span className="news-orbit news-orbit-b" aria-hidden="true" />
+              </div>
+            </div>
+            <div className="news-socials section-shell">
+              <p>FOLLOW THE NEXT TRANSMISSION</p>
+              <div>
+                <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">INSTAGRAM <ArrowUpRight size={13} /></a>
+                <a href="https://x.com/" target="_blank" rel="noreferrer">X / TWITTER <ArrowUpRight size={13} /></a>
+                <a href="https://wa.me/" target="_blank" rel="noreferrer">WHATSAPP <ArrowUpRight size={13} /></a>
+                <a href="https://www.youtube.com/" target="_blank" rel="noreferrer">YOUTUBE <ArrowUpRight size={13} /></a>
               </div>
             </div>
           </section>
