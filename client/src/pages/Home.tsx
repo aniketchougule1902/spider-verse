@@ -157,8 +157,23 @@ export default function Home() {
     if (event.target instanceof Element && event.target.closest("button, a, input, label, select, textarea")) return;
     const shot = shotRef.current;
     if (!shot) return;
+
+    const startX = event.clientX;
+    const startY = event.clientY;
+    const minDistance = Math.min(window.innerWidth, window.innerHeight) < 540 ? 72 : 118;
+    const maxDistance = Math.min(window.innerWidth, window.innerHeight) < 540 ? 152 : 290;
+    const throwAngle = Math.random() * Math.PI * 2;
+    const intendedDistance = minDistance + Math.random() * (maxDistance - minDistance);
+    const targetX = Math.min(window.innerWidth - 18, Math.max(18, startX + Math.cos(throwAngle) * intendedDistance));
+    const targetY = Math.min(window.innerHeight - 18, Math.max(18, startY + Math.sin(throwAngle) * intendedDistance));
+    const strandLength = Math.hypot(targetX - startX, targetY - startY);
+    const strandAngle = Math.atan2(targetY - startY, targetX - startX) * (180 / Math.PI);
+
     shot.style.left = `${event.clientX}px`;
     shot.style.top = `${event.clientY}px`;
+    shot.style.setProperty("--web-angle", `${strandAngle}deg`);
+    shot.style.setProperty("--web-length", `${strandLength}px`);
+    shot.style.setProperty("--web-impact-size", `${20 + Math.random() * 18}px`);
     shot.classList.remove("is-thrown");
     void shot.offsetWidth;
     shot.classList.add("is-thrown");

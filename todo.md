@@ -58,3 +58,6 @@
 - [x] Replace the current satellite with a larger, clearer 2D illustration.
 - [x] Add several small, moving UFOs to the Milky Way hero scene.
 - [x] Validate and push the refined hero scene.
+- [x] Inspect the existing web cursor and click-sound behavior.
+- [x] Add randomized web-strand launches with click-synchronized throw audio.
+- [x] Validate and push the enhanced web-cursor interaction.
