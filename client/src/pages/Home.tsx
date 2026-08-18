@@ -30,6 +30,7 @@ const authSpiderUrl = "/assets/white-highkey-webslinger-cutout.png";
 const managedAuthSpiderFallbackUrl = "/manus-storage/white-highkey-webslinger-cutout-v2_8fd40822.png";
 const galaxyTextureUrl = "/manus-storage/spider-verse-milkyway-hero_84834daa.jpg";
 const heroGalaxyUrl = galaxyTextureUrl;
+const splashVideoUrl = "/assets/InShot_20260818_182448771.mp4";
 
 const worlds = [
   { code: "ORBIT // 01", title: "Aurelia", body: "A gold-lit world with a volatile upper atmosphere and long, quiet daybreaks.", detail: "Aurelia is a simulated inner-rim discovery: warm cloud bands, sudden auroras, and a horizon that glows like a fresh webline at dawn.", signature: "AURORA GLINT", origin: "INNER MILKY WAY", distance: "4.2 × 10¹³ km", visual: "aurelia" },
@@ -97,6 +98,9 @@ function playThwip() {
 }
 
 export default function Home() {
+  const [splashVisible, setSplashVisible] = useState(true);
+  const [splashExiting, setSplashExiting] = useState(false);
+  const [splashSoundOn, setSplashSoundOn] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
   const [connected, setConnected] = useState(false);
   const [connecting, setConnecting] = useState(false);
@@ -111,6 +115,7 @@ export default function Home() {
   const [newsSubscribed, setNewsSubscribed] = useState(false);
   const cursorRef = useRef<HTMLDivElement>(null);
   const shotRef = useRef<HTMLDivElement>(null);
+  const splashVideoRef = useRef<HTMLVideoElement>(null);
   const planetsSectionRef = useRef<HTMLElement>(null);
   const carouselPointerRef = useRef(false);
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -180,6 +185,23 @@ export default function Home() {
     playThwip();
   };
 
+  const exitSplash = () => {
+    if (splashExiting) return;
+    splashVideoRef.current?.pause();
+    setSplashExiting(true);
+    window.setTimeout(() => setSplashVisible(false), 420);
+  };
+
+  const toggleSplashSound = () => {
+    const nextSoundState = !splashSoundOn;
+    setSplashSoundOn(nextSoundState);
+    const video = splashVideoRef.current;
+    if (!video) return;
+    video.muted = !nextSoundState;
+    video.volume = 0.82;
+    if (nextSoundState) void video.play().catch(() => setSplashSoundOn(false));
+  };
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setConnecting(true);
@@ -244,7 +266,44 @@ export default function Home() {
         <i />
       </div>
 
-      {!connected && (
+      {splashVisible && (
+        <section className={`prelogin-splash ${splashExiting ? "is-exiting" : ""}`} aria-label="Akashganga transmission intro">
+          <video
+            ref={splashVideoRef}
+            className="prelogin-video"
+            src={splashVideoUrl}
+            autoPlay
+            muted={!splashSoundOn}
+            playsInline
+            preload="auto"
+            onEnded={exitSplash}
+            onError={exitSplash}
+          />
+          <div className="prelogin-vignette" aria-hidden="true" />
+          <div className="prelogin-grain" aria-hidden="true" />
+          <div className="prelogin-ui">
+            <a className="prelogin-brand" href="#top" onClick={(event) => { event.preventDefault(); exitSplash(); }} aria-label="Skip intro and open Akashganga login">
+              <span className="akashganga-logo" aria-hidden="true"><i /><i /><i /></span>
+              <span><b>AKASHGANGA</b><small>INCOMING TRANSMISSION</small></span>
+            </a>
+            <div className="prelogin-controls">
+              <p><Radio size={13} /> VIDEO UPLINK // LIVE</p>
+              <div>
+                <button type="button" className="splash-sound-button" onClick={toggleSplashSound} aria-pressed={splashSoundOn}>
+                  {splashSoundOn ? <Volume2 size={16} /> : <Headphones size={16} />}
+                  <span>{splashSoundOn ? "Sound on" : "Enable sound"}</span>
+                </button>
+                <button type="button" className="splash-skip-button" onClick={exitSplash}>
+                  <span>Skip intro</span><ArrowUpRight size={15} />
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="prelogin-caption" aria-live="polite"><span />MULTIVERSE SIGNAL ACQUIRED</div>
+        </section>
+      )}
+
+      {!connected && !splashVisible && (
         <section className="auth-stage" aria-label="Akashganga entrance">
           <div className="auth-galaxy" />
           <div className="auth-grain" />

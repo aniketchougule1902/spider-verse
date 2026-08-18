@@ -70,3 +70,7 @@
 - [x] Inspect the available layers around the main hero UFO.
 - [x] Add distant planets, comet trace, star cluster, and orbital instrumentation.
 - [x] Validate and push the enriched hero composition.
+- [x] Locate and assess the supplied InShot video asset.
+- [x] Prepare the video for deployment-safe static delivery.
+- [x] Add the smooth pre-login splash with original video sound and skip path.
+- [x] Validate and push the video-splash experience.
