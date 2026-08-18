@@ -21,6 +21,7 @@ import {
   Volume2,
   X,
 } from "lucide-react";
+import Globe3D from "@/components/Globe3D";
 
 const authSpiderUrl = "/assets/white-highkey-webslinger-cutout.png";
 const heroGalaxyUrl = "/assets/ufo-milkyway-observatory.jpg";
@@ -86,7 +87,6 @@ export default function Home() {
   const [downloadOpen, setDownloadOpen] = useState(false);
   const cursorRef = useRef<HTMLDivElement>(null);
   const shotRef = useRef<HTMLDivElement>(null);
-  const detailPlanetRef = useRef<HTMLDivElement>(null);
   const planetsSectionRef = useRef<HTMLElement>(null);
   const carouselPointerRef = useRef(false);
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -186,27 +186,6 @@ export default function Home() {
     } catch {
       // Some preview browsers block Web Audio. The visual pulse still confirms the selected state.
     }
-  };
-
-  const tiltPlanet = (event: PointerEvent<HTMLDivElement>) => {
-    const target = detailPlanetRef.current;
-    if (!target) return;
-    const bounds = target.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-    target.style.setProperty("--tilt-x", `${-10 - y * 20}deg`);
-    target.style.setProperty("--tilt-y", `${16 + x * 34}deg`);
-    target.style.setProperty("--planet-light-x", `${48 + x * 24}%`);
-    target.style.setProperty("--planet-light-y", `${34 + y * 22}%`);
-    target.style.setProperty("--planet-drift", `${x * 30}deg`);
-  };
-
-  const resetPlanetTilt = () => {
-    detailPlanetRef.current?.style.removeProperty("--tilt-x");
-    detailPlanetRef.current?.style.removeProperty("--tilt-y");
-    detailPlanetRef.current?.style.removeProperty("--planet-light-x");
-    detailPlanetRef.current?.style.removeProperty("--planet-light-y");
-    detailPlanetRef.current?.style.removeProperty("--planet-drift");
   };
 
   return (
@@ -378,7 +357,7 @@ export default function Home() {
                       {worlds.slice(group * 3, group * 3 + 3).map((world, index) => (
                         <button className={`planet-card planet-${world.visual}`} type="button" key={world.code} onClick={() => setSelectedWorld(world)}>
                           <span className="planet-card-number">{String(group * 3 + index + 1).padStart(2, "0")}</span>
-                          <div className="planet-card-visual" aria-hidden="true"><div className="planet-sphere"><i /><b /></div></div>
+                          <div className="planet-card-visual"><Globe3D visual={world.visual} label={world.title} animate={planetsInView} /></div>
                           <div className="planet-card-copy"><p className="eyebrow">{world.origin}</p><h3>{world.title}</h3><span>{world.body}</span><p className="planet-distance">SIM DISTANCE <b>{world.distance}</b></p></div>
                           <span className="planet-open">VIEW PLANET <ArrowUpRight size={14} /></span>
                         </button>
@@ -452,9 +431,13 @@ export default function Home() {
                   <div className="world-readouts"><span>GALACTIC REGION <b>{selectedWorld.origin}</b></span><span>SIM DISTANCE <b>{selectedWorld.distance}</b></span><span>KEY TRACE <b>{selectedWorld.signature}</b></span></div>
                   <p className="planet-instruction">TOUCH, DRAG, OR MOVE ACROSS THE PLANET TO TILT THE 3D ORBITAL MODEL</p>
                 </div>
+<<<<<<< HEAD
                 <div className="detail-planet-stage" ref={detailPlanetRef} onPointerDown={(event) => event.currentTarget.setPointerCapture(event.pointerId)} onPointerMove={tiltPlanet} onPointerUp={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId); resetPlanetTilt(); }} onPointerLeave={resetPlanetTilt} onPointerCancel={resetPlanetTilt}>
                   <div className="interactive-planet"><div className="planet-sphere"><i /><b /></div><span className="planet-orbit orbit-one" /><span className="planet-orbit orbit-two" /><span className="planet-scan" /></div>
                 </div>
+=======
+                <div className="detail-planet-stage"><Globe3D visual={selectedWorld.visual} label={selectedWorld.title} size="detail" interactive /></div>
+>>>>>>> 925e0a8 (Add Three.js WebGL globe explorer)
               </article>
             </div>
           )}

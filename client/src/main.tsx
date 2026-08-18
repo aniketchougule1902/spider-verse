@@ -6,5 +6,6 @@ import "./mobile-observatory.css";
 import "./planet-experience.css";
 import "./akashganga-expansion.css";
 import "./spherical-planets.css";
+import "./globe3d.css";
 
 createRoot(document.getElementById("root")!).render(<App />);
