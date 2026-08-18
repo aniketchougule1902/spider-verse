@@ -9,6 +9,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Crosshair,
+  Download,
   Headphones,
   Menu,
   Mouse,
@@ -21,22 +22,29 @@ import {
   X,
 } from "lucide-react";
 
-const markUrl = "/assets/orbital-spider-mark.png";
 const authSpiderUrl = "/assets/white-highkey-webslinger-cutout.png";
 const heroGalaxyUrl = "/assets/ufo-milkyway-observatory.jpg";
 const galaxyTextureUrl = "/assets/spider-verse-milkyway-hero.jpg";
 
 const worlds = [
-  { code: "EARTH-1610", title: "Brooklyn Signal", body: "A home-frequency full of first leaps, improvised heroics, and a spider that changed the channel.", detail: "Miles Morales' Brooklyn is an alive, chromatic city where every leap starts with a choice and every rooftop carries a new signal.", signature: "VENOM PULSE", visual: "brooklyn" },
-  { code: "EARTH-65", title: "Gwen’s Frequency", body: "A drummer’s pulse beneath a watercolor skyline where one spider bite bends the whole score.", detail: "Gwen Stacy's world paints emotion directly into the skyline: soft washes, hard drumbeats, and a city that changes color with its hero.", signature: "WATERCOLOR WAVE", visual: "gwen" },
-  { code: "EARTH-928", title: "Nueva York", body: "An elevated future-city where order is monitored, anomalies are archived, and every portal leaves a trace.", detail: "Miguel O'Hara's Nueva York runs on vertical motion, archive logic, and a future skyline where the Spider-Society watches every dimensional fracture.", signature: "LYLA GRID", visual: "nueva" },
-  { code: "EARTH-42", title: "Prowler Night", body: "A city without its Spider-Man, tuned to a darker frequency and an alternate Miles with sharp edges.", detail: "Earth-42 is Brooklyn after a missing spider-bite changes the whole equation. Its purple nightscape is tense, resilient, and still waiting for its turn to swing.", signature: "PURPLE STATIC", visual: "prowler" },
-  { code: "EARTH-50101", title: "Mumbattan", body: "A gravity-bending skyline where Mumbai and Manhattan share one exhilarating, impossible horizon.", detail: "Pavitr Prabhakar's Mumbattan folds bright color, vertical trains, and playful physics into a metropolis that feels built to be crossed by web.", signature: "CANON THREAD", visual: "mumbattan" },
-  { code: "EARTH-138", title: "Punk Frequency", body: "A cut-and-paste London riot powered by guitar feedback, ink splatter, and Hobie Brown's refusal to conform.", detail: "Earth-138 breaks its own frame on purpose. Every collage edge and poster tear becomes a signal that the web can always be remixed.", signature: "AMP DISTORTION", visual: "punk" },
-  { code: "EARTH-90214", title: "Noir City", body: "A black-and-white metropolis of rain, hard shadows, and a detective who never stops listening for trouble.", detail: "Spider-Man Noir's world filters the multiverse through film grain and noir instincts, turning every street lamp into a warning and every shadow into a question.", signature: "MONOCHROME TRACE", visual: "noir" },
-  { code: "EARTH-14512", title: "SP//dr Sector", body: "A neon-mecha dimension where Peni Parker syncs heart and machine to protect a hypercharged city.", detail: "Peni's universe merges organic feeling with engineered defense. Its signal is sharp, bright, and always one step away from a giant mechanical swing.", signature: "NEURAL LINK", visual: "spdr" },
-  { code: "EARTH-13122", title: "Brickline Sector", body: "A modular city where every wall can rebuild itself and one LEGO Spider-Man keeps the pieces moving.", detail: "Brickline Sector turns the web into a toybox of infinite construction: compact, colorful, and always ready to snap into a new configuration.", signature: "STUD ALIGNMENT", visual: "brick" },
+  { code: "ORBIT // 01", title: "Aurelia", body: "A gold-lit world with a volatile upper atmosphere and long, quiet daybreaks.", detail: "Aurelia is a simulated inner-rim discovery: warm cloud bands, sudden auroras, and a horizon that glows like a fresh webline at dawn.", signature: "AURORA GLINT", origin: "INNER MILKY WAY", distance: "4.2 × 10¹³ km", visual: "aurelia" },
+  { code: "ORBIT // 02", title: "Noctis Ring", body: "A midnight planet circled by dust rings that fracture starlight into blue-black ribbons.", detail: "Noctis Ring turns every approach into a night flight. Its reflective halo is ideal for tracing faint anomaly signatures across the Milky Way.", signature: "OBSIDIAN HALO", origin: "INNER MILKY WAY", distance: "5.7 × 10¹³ km", visual: "noctis" },
+  { code: "ORBIT // 03", title: "Solara Nexus", body: "A bright desert sphere threaded with solar mirrors and magnetic storms.", detail: "Solara Nexus catches more light than its charted orbit should allow, making it a high-contrast marker for Akashganga field crews.", signature: "SOLAR ARC", origin: "SCUTUM ARM", distance: "7.9 × 10¹³ km", visual: "solara" },
+  { code: "ORBIT // 04", title: "Mistral Bloom", body: "A soft violet gas-world where wind currents create petals large enough to chart.", detail: "Mistral Bloom is a painterly atmosphere in motion. Its endless weather roses carry data streams through a lavender sky.", signature: "VIOLET DRAFT", origin: "ORION SPUR", distance: "8.6 × 10¹³ km", visual: "mistral" },
+  { code: "ORBIT // 05", title: "Ember Veil", body: "A coal-red rocky world wrapped in an electric ember mist.", detail: "Ember Veil has a restless surface and a stubborn heat signature. Its distant glow makes a reliable waypoint beyond the local dust lanes.", signature: "CINDER STATIC", origin: "PERSEUS ARM", distance: "9.4 × 10¹³ km", visual: "ember" },
+  { code: "ORBIT // 06", title: "Cobalt Halo", body: "A cobalt ocean planet with an ice-bright ring of frozen spray.", detail: "Cobalt Halo reflects its home star in layered blue gradients. When its polar ring tilts, the planet reads like an orbital lens.", signature: "ICE LENS", origin: "ORION SPUR", distance: "1.1 × 10¹⁴ km", visual: "cobalt" },
+  { code: "ORBIT // 07", title: "Verdant Echo", body: "A green-blue superworld alive with luminous storm forests.", detail: "Verdant Echo turns deep-space radio noise into patterned flashes across its cloud cover, making it feel almost like a planet answering back.", signature: "BIO LUMEN", origin: "SAGITTARIUS ARM", distance: "1.3 × 10¹⁴ km", visual: "verdant" },
+  { code: "ORBIT // 08", title: "Ibis Rift", body: "A narrow crimson planet split by a continent-long rift of reflected magma.", detail: "Ibis Rift is a sharp red punctuation mark against a dark field. Its cracked surface amplifies every scan and makes dimensional readings easier to compare.", signature: "RIFT ECHO", origin: "CARINA ARM", distance: "1.5 × 10¹⁴ km", visual: "ibis" },
+  { code: "ORBIT // 09", title: "Fable Orbit", body: "A storybook moon-world whose pale clouds loop in impossible spirals.", detail: "Fable Orbit holds soft white storms in a slow gravitational dance. It is the kind of world that makes a navigation chart feel hand drawn.", signature: "CLOUD THREAD", origin: "ORION SPUR", distance: "1.7 × 10¹⁴ km", visual: "fable" },
+  { code: "ORBIT // 10", title: "Quartz Tide", body: "A silver shoreline planet where mineral tides flash against a dark sea.", detail: "Quartz Tide catches distant starlight in bright metallic swells. Field teams use its rhythmic glints to calibrate long-range web beacons.", signature: "SILVER TIDE", origin: "OUTER DISK", distance: "2.0 × 10¹⁴ km", visual: "quartz" },
+  { code: "ORBIT // 11", title: "Nebula Nara", body: "A rose-cloud planet suspended inside the glow of a diffuse stellar nursery.", detail: "Nebula Nara lives inside a haze of newborn stars. Its atmosphere absorbs and re-emits color in a rolling pink signal.", signature: "ROSE HAZE", origin: "CYGNUS ARM", distance: "2.4 × 10¹⁴ km", visual: "nara" },
+  { code: "ORBIT // 12", title: "Crimson Lumen", body: "A deep red giant with a flickering bright-side pulse every forty minutes.", detail: "Crimson Lumen behaves like a cosmic warning light. Its timed flare helps Akashganga distinguish a stable route from a noisy one.", signature: "PULSE BEACON", origin: "PERSEUS ARM", distance: "2.8 × 10¹⁴ km", visual: "crimson" },
+  { code: "ORBIT // 13", title: "Aster Vault", body: "A pale ceramic planet locked beneath a vault of crystalline auroras.", detail: "Aster Vault is cool, quiet, and almost architectural. Its geometric light bands make it a clean reference for planetary tilt simulations.", signature: "CRYSTAL ARC", origin: "OUTER DISK", distance: "3.2 × 10¹⁴ km", visual: "aster" },
+  { code: "ORBIT // 14", title: "Pollen Arc", body: "A bright citrus world that scatters star dust into its yellow-green sky.", detail: "Pollen Arc is small but unforgettable, casting a warm grainy halo that makes it easy to find across the larger Milky Way field.", signature: "GOLD DUST", origin: "SAGITTARIUS ARM", distance: "3.7 × 10¹⁴ km", visual: "pollen" },
+  { code: "ORBIT // 15", title: "Glass Meridian", body: "A midnight glass sphere marked by a single mirrored equator.", detail: "Glass Meridian reflects the galactic band as a clean silver seam. It is a final horizon for this field set, calm and sharply defined.", signature: "MIRROR LINE", origin: "OUTER DISK", distance: "4.1 × 10¹⁴ km", visual: "glass" },
 ];
+
+const planetSetCount = Math.ceil(worlds.length / 3);
 
 const missions = [
   ["01", "Trace anomalies", "Map the places where dimensional signatures flare bright enough to cross a web.", "EXOPLANETS"],
@@ -73,10 +81,13 @@ export default function Home() {
   const [cursorReady, setCursorReady] = useState(false);
   const [musicOn, setMusicOn] = useState(false);
   const [planetSlide, setPlanetSlide] = useState(0);
+  const [planetsInView, setPlanetsInView] = useState(false);
   const [selectedWorld, setSelectedWorld] = useState<(typeof worlds)[number] | null>(null);
+  const [downloadOpen, setDownloadOpen] = useState(false);
   const cursorRef = useRef<HTMLDivElement>(null);
   const shotRef = useRef<HTMLDivElement>(null);
   const detailPlanetRef = useRef<HTMLDivElement>(null);
+  const planetsSectionRef = useRef<HTMLElement>(null);
   const carouselPointerRef = useRef(false);
   const audioContextRef = useRef<AudioContext | null>(null);
   const musicTimerRef = useRef<number | null>(null);
@@ -89,9 +100,9 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (!selectedWorld) return;
+    if (!selectedWorld && !downloadOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setSelectedWorld(null);
+      if (event.key === "Escape") { setSelectedWorld(null); setDownloadOpen(false); }
     };
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -100,7 +111,15 @@ export default function Home() {
       document.body.style.overflow = originalOverflow;
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [selectedWorld]);
+  }, [selectedWorld, downloadOpen]);
+
+  useEffect(() => {
+    const section = planetsSectionRef.current;
+    if (!section || !connected) return;
+    const observer = new IntersectionObserver(([entry]) => setPlanetsInView(entry.isIntersecting), { threshold: 0.42 });
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [connected]);
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     if (!cursorReady) setCursorReady(true);
@@ -111,6 +130,7 @@ export default function Home() {
   };
 
   const throwWeb = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.target instanceof Element && event.target.closest("button, a, input, label, select, textarea")) return;
     const shot = shotRef.current;
     if (!shot) return;
     shot.style.left = `${event.clientX}px`;
@@ -201,12 +221,12 @@ export default function Home() {
       </div>
 
       {!connected && (
-        <section className="auth-stage" aria-label="Spider-Verse Galaxy entrance">
+        <section className="auth-stage" aria-label="Akashganga entrance">
           <div className="auth-galaxy" />
           <div className="auth-grain" />
-          <a className="auth-brand" href="#top" aria-label="Spider-Verse Galaxy home">
-            <img src={markUrl} alt="" />
-            <span><b>SPIDER / VERSE</b><small>GALAXY OBSERVATORY</small></span>
+          <a className="auth-brand" href="#top" aria-label="Akashganga home">
+            <span className="akashganga-logo" aria-hidden="true"><i /><i /><i /></span>
+            <span><b>AKASHGANGA</b><small>MILKY WAY FIELD LAB</small></span>
           </a>
 
           <div className="auth-panel">
@@ -282,15 +302,16 @@ export default function Home() {
       {connected && (
         <main id="top" className="experience-shell">
           <header className="site-nav">
-            <a className="nav-brand" href="#home" aria-label="Spider-Verse Galaxy home">
-              <img src={markUrl} alt="" />
-              <span>SPIDER / VERSE<br /><small>GALAXY</small></span>
+            <a className="nav-brand" href="#home" aria-label="Akashganga home">
+              <span className="akashganga-logo" aria-hidden="true"><i /><i /><i /></span>
+              <span>AKASHGANGA<br /><small>MILKY WAY FIELD LAB</small></span>
             </a>
             <nav className={menuOpen ? "is-open" : ""} aria-label="Primary navigation">
               <a className="active" href="#home" onClick={() => setMenuOpen(false)}>Home</a>
               <a href="#exoplanets" onClick={() => setMenuOpen(false)}>Exoplanets</a>
               <a href="#exploration" onClick={() => setMenuOpen(false)}>Exploration</a>
               <a href="#facts" onClick={() => setMenuOpen(false)}>Facts</a>
+              <a href="#download-app" onClick={(event) => { event.preventDefault(); setDownloadOpen(true); setMenuOpen(false); }}>Download app</a>
               <button className="mobile-music" type="button" onClick={toggleMusic}><Volume2 size={15} /> {musicOn ? "Mute pulse" : "Play pulse"}</button>
             </nav>
             <button className={`pulse-button ${musicOn ? "playing" : ""}`} type="button" onClick={toggleMusic} aria-label={musicOn ? "Mute ambient pulse" : "Play ambient pulse"}>
@@ -311,7 +332,7 @@ export default function Home() {
               <h1>There’s a<br /><em>whole universe</em><br />to swing through.</h1>
               <p className="hero-lede">Follow the signals where Spider-heroes meet distant worlds, impossible tech, and galaxies bigger than any one canon.</p>
               <div className="hero-actions">
-                <a href="#exoplanets" className="signal-button">Explore exoplanets <ArrowUpRight size={17} /></a>
+                <button type="button" className="signal-button" onClick={() => setDownloadOpen(true)}><Download size={17} /> Download app</button>
                 <a href="#facts" className="text-link">Read the field notes <ChevronRight size={15} /></a>
               </div>
             </div>
@@ -330,30 +351,30 @@ export default function Home() {
             </a>
           </section>
 
-          <section id="exoplanets" className="worlds-section section-shell">
+          <section id="exoplanets" ref={planetsSectionRef} className={`worlds-section section-shell ${planetsInView ? "planets-in-view" : ""}`}>
             <div className="section-kicker"><span>01</span> EXOPLANETS / KNOWN FREQUENCIES</div>
             <div className="worlds-heading carousel-heading">
-              <h2>Nine worlds.<br /><em>One fractured web.</em></h2>
-              <p>Trace three signals at a time, then open any coordinate to explore a living, interactive world model.</p>
+              <h2>Milky Way worlds.<br /><em>One living orbit.</em></h2>
+              <p>Trace three planets at a time, then open any signal to tilt a living 3D model with your cursor or touch.</p>
             </div>
             <div className="planet-carousel" aria-label="Spider-Verse world carousel">
               <div className="carousel-toolbar">
-                <p><span>{String(planetSlide + 1).padStart(2, "0")}</span> / 03 TRANSMISSION SETS</p>
+                <p><span>{String(planetSlide + 1).padStart(2, "0")}</span> / {String(planetSetCount).padStart(2, "0")} TRANSMISSION SETS</p>
                 <div className="carousel-controls">
-                  <button type="button" onPointerDown={(event) => { event.stopPropagation(); carouselPointerRef.current = true; setPlanetSlide((currentSlide) => (currentSlide + 2) % 3); }} onClick={(event) => { event.stopPropagation(); if (!carouselPointerRef.current) setPlanetSlide((currentSlide) => (currentSlide + 2) % 3); carouselPointerRef.current = false; }} aria-label="Previous three worlds"><ChevronLeft size={19} /></button>
-                  <button type="button" onPointerDown={(event) => { event.stopPropagation(); carouselPointerRef.current = true; setPlanetSlide((currentSlide) => (currentSlide + 1) % 3); }} onClick={(event) => { event.stopPropagation(); if (!carouselPointerRef.current) setPlanetSlide((currentSlide) => (currentSlide + 1) % 3); carouselPointerRef.current = false; }} aria-label="Next three worlds"><ChevronRight size={19} /></button>
+                  <button type="button" onPointerDown={(event) => { event.stopPropagation(); carouselPointerRef.current = true; setPlanetSlide((currentSlide) => (currentSlide + planetSetCount - 1) % planetSetCount); }} onClick={(event) => { event.stopPropagation(); if (!carouselPointerRef.current) setPlanetSlide((currentSlide) => (currentSlide + planetSetCount - 1) % planetSetCount); carouselPointerRef.current = false; }} aria-label="Previous three planets"><ChevronLeft size={19} /></button>
+                  <button type="button" onPointerDown={(event) => { event.stopPropagation(); carouselPointerRef.current = true; setPlanetSlide((currentSlide) => (currentSlide + 1) % planetSetCount); }} onClick={(event) => { event.stopPropagation(); if (!carouselPointerRef.current) setPlanetSlide((currentSlide) => (currentSlide + 1) % planetSetCount); carouselPointerRef.current = false; }} aria-label="Next three planets"><ChevronRight size={19} /></button>
                 </div>
               </div>
               <div className="carousel-window">
                 <div className="carousel-track" style={{ transform: `translateX(-${planetSlide * 100}%)` }}>
-                  {[0, 1, 2].map((group) => (
+                  {Array.from({ length: planetSetCount }, (_, group) => (
                     <div className="planet-slide" key={group}>
                       {worlds.slice(group * 3, group * 3 + 3).map((world, index) => (
                         <button className={`planet-card planet-${world.visual}`} type="button" key={world.code} onClick={() => setSelectedWorld(world)}>
                           <span className="planet-card-number">{String(group * 3 + index + 1).padStart(2, "0")}</span>
-                          <div className="planet-sphere" aria-hidden="true"><i /><b /></div>
-                          <div className="planet-card-copy"><p className="eyebrow">{world.code}</p><h3>{world.title}</h3><span>{world.body}</span></div>
-                          <span className="planet-open">OPEN WORLD <ArrowUpRight size={14} /></span>
+                          <div className="planet-card-visual" aria-hidden="true"><div className="planet-sphere"><i /><b /></div></div>
+                          <div className="planet-card-copy"><p className="eyebrow">{world.origin}</p><h3>{world.title}</h3><span>{world.body}</span><p className="planet-distance">SIM DISTANCE <b>{world.distance}</b></p></div>
+                          <span className="planet-open">VIEW PLANET <ArrowUpRight size={14} /></span>
                         </button>
                       ))}
                     </div>
@@ -403,12 +424,12 @@ export default function Home() {
           <footer className="site-footer">
             <div className="footer-orbit" />
             <div className="footer-top section-shell">
-              <a className="footer-brand" href="#home"><img src={markUrl} alt="" /><span>SPIDER / VERSE<br /><small>GALAXY OBSERVATORY</small></span></a>
-              <p>Built for curious minds swinging between science, story, and the spaces in between.</p>
-              <a className="signal-button footer-cta" href="#home">Rejoin the signal <ArrowUpRight size={16} /></a>
+              <a className="footer-brand" href="#home"><span className="akashganga-logo" aria-hidden="true"><i /><i /><i /></span><span>AKASHGANGA<br /><small>MILKY WAY FIELD LAB</small></span></a>
+              <p>Built for curious minds tracing planets, stories, and the bright lanes between them.</p>
+              <button type="button" className="signal-button footer-cta" onClick={() => setDownloadOpen(true)}>Download app <Download size={16} /></button>
             </div>
             <div className="footer-bottom section-shell">
-              <span>© 2026 SPIDER-VERSE GALAXY</span>
+              <span>© 2026 AKASHGANGA FIELD LAB</span>
               <div><a href="#home">Home</a><a href="#exoplanets">Exoplanets</a><a href="#exploration">Exploration</a><a href="#facts">Facts</a></div>
               <span>FAN FIELD STUDY // 08-616</span>
             </div>
@@ -419,17 +440,33 @@ export default function Home() {
               <article className={`world-dialog planet-${selectedWorld.visual}`} role="dialog" aria-modal="true" aria-labelledby="world-dialog-title" onPointerDown={(event) => event.stopPropagation()}>
                 <button className="world-dialog-close" type="button" onClick={() => setSelectedWorld(null)} aria-label="Close world detail"><X size={20} /></button>
                 <div className="world-dialog-copy">
-                  <p className="eyebrow"><Crosshair size={13} /> DIMENSIONAL READOUT // {selectedWorld.code}</p>
+                  <p className="eyebrow"><Crosshair size={13} /> AKASHGANGA PLANET READOUT // {selectedWorld.code}</p>
                   <h2 id="world-dialog-title">{selectedWorld.title}</h2>
                   <p>{selectedWorld.detail}</p>
-                  <div className="world-readouts"><span>HOME SIGNAL <b>{selectedWorld.code}</b></span><span>KEY TRACE <b>{selectedWorld.signature}</b></span></div>
-                  <p className="planet-instruction">MOVE ACROSS THE PLANET TO TILT THE ORBITAL MODEL</p>
+                  <div className="world-readouts"><span>GALACTIC REGION <b>{selectedWorld.origin}</b></span><span>SIM DISTANCE <b>{selectedWorld.distance}</b></span><span>KEY TRACE <b>{selectedWorld.signature}</b></span></div>
+                  <p className="planet-instruction">TOUCH, DRAG, OR MOVE ACROSS THE PLANET TO TILT THE 3D ORBITAL MODEL</p>
                 </div>
-                <div className="detail-planet-stage" ref={detailPlanetRef} onPointerMove={tiltPlanet} onPointerLeave={resetPlanetTilt}>
+                <div className="detail-planet-stage" ref={detailPlanetRef} onPointerDown={(event) => event.currentTarget.setPointerCapture(event.pointerId)} onPointerMove={tiltPlanet} onPointerLeave={resetPlanetTilt} onPointerCancel={resetPlanetTilt}>
                   <div className="interactive-planet"><div className="planet-sphere"><i /><b /></div><span className="planet-orbit orbit-one" /><span className="planet-orbit orbit-two" /><span className="planet-scan" /></div>
                 </div>
               </article>
             </div>
+          )}
+          {downloadOpen && (
+            <section id="download-app" className="download-page" role="dialog" aria-modal="true" aria-labelledby="download-app-title">
+              <div className="download-starfield" />
+              <button className="world-dialog-close download-close" type="button" onClick={() => setDownloadOpen(false)} aria-label="Close download page"><X size={20} /></button>
+              <div className="download-layout">
+                <div className="download-copy">
+                  <p className="eyebrow"><Download size={13} /> AKASHGANGA APP / DEMO RELEASE</p>
+                  <h2 id="download-app-title">Keep the<br /><em>Milky Way</em><br />in your pocket.</h2>
+                  <p>AKASHGANGA is a fictional field companion for saving planetary signals, rotating 3D worlds, and following the next bright webline home.</p>
+                  <div className="download-actions"><button className="signal-button" type="button">Download for iOS <ArrowUpRight size={16} /></button><button className="app-outline-button" type="button">Download for Android <ArrowUpRight size={16} /></button></div>
+                  <small>DEMO DOWNLOAD ONLY // NO APP FILE WILL BE INSTALLED</small>
+                </div>
+                <div className="download-visual" aria-hidden="true"><div className="app-web"><i /><i /><i /><i /><i /><i /></div><div className="app-phone"><div className="app-phone-top">AKASHGANGA <span>●</span></div><div className="app-mini-planet"><i /><b /></div><p>GLASS MERIDIAN</p><small>4.1 × 10¹⁴ KM</small><div className="app-phone-bars"><span /><span /><span /></div></div></div>
+              </div>
+            </section>
           )}
         </main>
       )}
