@@ -67,3 +67,6 @@
 - [x] Inspect the login and hero background layers for alignment.
 - [x] Apply the login page Milky Way background to the hero section.
 - [x] Validate and push the matching hero-galaxy treatment.
+- [x] Inspect the available layers around the main hero UFO.
+- [x] Add distant planets, comet trace, star cluster, and orbital instrumentation.
+- [x] Validate and push the enriched hero composition.
