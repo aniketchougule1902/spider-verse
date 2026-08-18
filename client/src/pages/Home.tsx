@@ -196,11 +196,17 @@ export default function Home() {
     const y = (event.clientY - bounds.top) / bounds.height - 0.5;
     target.style.setProperty("--tilt-x", `${-10 - y * 20}deg`);
     target.style.setProperty("--tilt-y", `${16 + x * 34}deg`);
+    target.style.setProperty("--planet-light-x", `${48 + x * 24}%`);
+    target.style.setProperty("--planet-light-y", `${34 + y * 22}%`);
+    target.style.setProperty("--planet-drift", `${x * 30}deg`);
   };
 
   const resetPlanetTilt = () => {
     detailPlanetRef.current?.style.removeProperty("--tilt-x");
     detailPlanetRef.current?.style.removeProperty("--tilt-y");
+    detailPlanetRef.current?.style.removeProperty("--planet-light-x");
+    detailPlanetRef.current?.style.removeProperty("--planet-light-y");
+    detailPlanetRef.current?.style.removeProperty("--planet-drift");
   };
 
   return (
@@ -446,7 +452,7 @@ export default function Home() {
                   <div className="world-readouts"><span>GALACTIC REGION <b>{selectedWorld.origin}</b></span><span>SIM DISTANCE <b>{selectedWorld.distance}</b></span><span>KEY TRACE <b>{selectedWorld.signature}</b></span></div>
                   <p className="planet-instruction">TOUCH, DRAG, OR MOVE ACROSS THE PLANET TO TILT THE 3D ORBITAL MODEL</p>
                 </div>
-                <div className="detail-planet-stage" ref={detailPlanetRef} onPointerDown={(event) => event.currentTarget.setPointerCapture(event.pointerId)} onPointerMove={tiltPlanet} onPointerLeave={resetPlanetTilt} onPointerCancel={resetPlanetTilt}>
+                <div className="detail-planet-stage" ref={detailPlanetRef} onPointerDown={(event) => event.currentTarget.setPointerCapture(event.pointerId)} onPointerMove={tiltPlanet} onPointerUp={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId); resetPlanetTilt(); }} onPointerLeave={resetPlanetTilt} onPointerCancel={resetPlanetTilt}>
                   <div className="interactive-planet"><div className="planet-sphere"><i /><b /></div><span className="planet-orbit orbit-one" /><span className="planet-orbit orbit-two" /><span className="planet-scan" /></div>
                 </div>
               </article>
