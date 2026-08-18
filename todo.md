@@ -64,3 +64,6 @@
 - [x] Inspect global landing-page backgrounds and contrast boundaries.
 - [x] Implement a shared universe star field and Milky Way depth treatment.
 - [x] Validate and push the full-page universe background enhancement.
+- [x] Inspect the login and hero background layers for alignment.
+- [x] Apply the login page Milky Way background to the hero section.
+- [x] Validate and push the matching hero-galaxy treatment.

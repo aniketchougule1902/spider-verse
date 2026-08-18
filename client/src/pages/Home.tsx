@@ -28,8 +28,8 @@ import Globe3D, { type GlobeMaterialProfile } from "@/components/Globe3D";
 
 const authSpiderUrl = "/assets/white-highkey-webslinger-cutout.png";
 const managedAuthSpiderFallbackUrl = "/manus-storage/white-highkey-webslinger-cutout-v2_8fd40822.png";
-const heroGalaxyUrl = "/manus-storage/ufo-milkyway-observatory_66054443.jpg";
 const galaxyTextureUrl = "/manus-storage/spider-verse-milkyway-hero_84834daa.jpg";
+const heroGalaxyUrl = galaxyTextureUrl;
 
 const worlds = [
   { code: "ORBIT // 01", title: "Aurelia", body: "A gold-lit world with a volatile upper atmosphere and long, quiet daybreaks.", detail: "Aurelia is a simulated inner-rim discovery: warm cloud bands, sudden auroras, and a horizon that glows like a fresh webline at dawn.", signature: "AURORA GLINT", origin: "INNER MILKY WAY", distance: "4.2 × 10¹³ km", visual: "aurelia" },
